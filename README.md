@@ -1,0 +1,1 @@
+# By-hemeskai_ovcharka.
