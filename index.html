@@ -55,7 +55,7 @@ const $=id=>document.getElementById(id);
 const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}};
 const load=()=>{try{const r=localStorage.getItem(KEY);return r?JSON.parse(r):null}catch(e){return null}};
-const top=()=>window.scrollTo(0,0);
+const toTop=()=>window.scrollTo(0,0);
 
 function home(){
   const s=load(),has=s&&!s.done&&s.order&&s.order.length;
@@ -69,7 +69,7 @@ const begin=()=>startQuiz(Q.map((_,i)=>i),$('shuf').checked);
 function startQuiz(list,shuf){
   const o=list.slice();
   if(shuf)for(let i=o.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[o[i],o[j]]=[o[j],o[i]]}
-  st={order:o,ans:{},pos:0,done:false};grid=false;save();showQ();top();
+  st={order:o,ans:{},pos:0,done:false};grid=false;save();showQ();toTop();
 }
 function resume(){st=load();grid=false;showQ()}
 function showQ(){
@@ -89,11 +89,11 @@ function gridHtml(){
   <p class="mut">Без ответа: ${un}</p><button class="btn pri" onclick="finish()">Завершить тест</button>`;
 }
 function pick(j){st.ans[st.order[st.pos]]=j;save();showQ()}
-function go(d){st.pos+=d;save();showQ();top()}
-function jump(p){st.pos=p;grid=false;save();showQ();top()}
-function toggleGrid(){grid=!grid;showQ();top()}
-function finish(){st.done=true;grid=false;flt='all';save();showRes();top()}
-function setF(k){flt=k;showRes();top()}
+function go(d){st.pos+=d;save();showQ();toTop()}
+function jump(p){st.pos=p;grid=false;save();showQ();toTop()}
+function toggleGrid(){grid=!grid;showQ();toTop()}
+function finish(){st.done=true;grid=false;flt='all';save();showRes();toTop()}
+function setF(k){flt=k;showRes();toTop()}
 function retryBad(){startQuiz(st.order.filter(i=>st.ans[i]!==Q[i].a),false)}
 function card(r){
   const q=r.q;
